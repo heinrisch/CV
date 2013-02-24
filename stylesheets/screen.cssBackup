@@ -1,0 +1,112 @@
+html, body {
+  padding:0;
+  margin:0;
+}
+
+body {
+  overflow:auto;
+  height: 7600px;
+  margin: 0;
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica;
+}
+
+.centered { 
+  top:0; 
+  bottom:0; 
+  left:0; 
+  right:0; 
+  margin:auto; }
+
+#skrollr-body {
+  width: 100%; 
+  height: 100%;
+  position:fixed;
+}
+
+#skrollr-body  div {
+  overflow:hidden; 
+  position:fixed;
+}
+
+
+#intro {
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+.nicetext {
+  width: 100%; 
+  background-color: rgba(92, 215, 255, 0.67);
+  z-index: 1;
+  font-size: 36px;
+  font-weight: 300;
+  text-shadow: 0 1px 0 #fff;
+}
+
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+
+pre {
+  font-family:     "Courier New"
+                    Courier
+                    monospace;
+  font-size: 25px;
+  font-weight: 300;
+  text-shadow: 0 1px 0 #fff;
+}
+
+#workexperience {
+  background-color: green;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+#workexperienceheader {
+  height: 150px;
+  width: 100%;
+  position block;
+}
+
+#workwrapp {
+  width: 50%;
+  height: 250px;
+  background-color: #e9bb3e;
+  float left;
+  right: 0;
+  left: 0;
+  top: 150px;
+}
+
+#workorc {
+  width: 50%;
+  height: 250px;
+  background-color: #9d314b;
+  top: 150px;
+  right: 0;
+  float: right;
+}
+
+#worksbla {
+  clear: both
+  width: 50%;
+  height: 250px;
+  background-color: rgb(127, 140, 238);
+  float left;
+  right: 0;
+  left: 0;
+  top: 400px;
+}
