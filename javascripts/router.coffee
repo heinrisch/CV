@@ -6,7 +6,6 @@ Router = Backbone.Router.extend({
   cv: =>
     console.log 'Loading Main view'
     view = new MainView()
-    console.log view.render().el
     $('#skrollr-body').html(view.render().el)
   
 })
@@ -26,14 +25,18 @@ loadScript = (url, callback) =>
 @includesCounter = @includes.length
 @documentDone = false
 
-for i in @includes
-  console.log 'including: ' + i
-  loadScript('javascripts/' + i, =>
-    console.log 'Checking if ready: ' + @includesCounter
-    @includesCounter--
-    startIfReady()
-  )
-
+i = 0
+recInclude = =>
+  if i < @includes.length
+    item = @includes[i++]
+    console.log 'including: ' + item
+    loadScript('javascripts/' + item, =>
+      @includesCounter--
+      console.log 'Checking if ready: ' + @includesCounter
+      startIfReady() if @includesCounter == 0
+      recInclude()
+    )
+recInclude()
 
 
 startApp = =>
@@ -51,5 +54,6 @@ $ =>
   startIfReady()
 
 startIfReady = =>
+  console.log "start if ready: " + @documentDone + ", " + @includeCounter
   if @documentDone and @includesCounter == 0
     startApp()
