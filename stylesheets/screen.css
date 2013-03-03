@@ -4,8 +4,8 @@ html, body {
 }
 
 body {
-  overflow:auto;
-  height: 7600px;
+  overflow: visible;
+  height: 10000px;
   margin: 0;
   font-size: 14px;
   font-family: "Helvetica Neue", Helvetica;
@@ -47,6 +47,12 @@ body {
 }
 
 .experience {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+
+.education {
   width: 100%;
   height: 100%;
   position: fixed;

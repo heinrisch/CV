@@ -45,6 +45,7 @@ recInclude()
     trigger: 'hover'
     animation: true
     placement: 'bottom'
+    container: 'body'
     })
 
 startApp = => 

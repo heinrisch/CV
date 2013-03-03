@@ -11,9 +11,15 @@
     function MainView() {
       this.render = __bind(this.render, this);
 
+      this.getDataTranslations = __bind(this.getDataTranslations, this);
+
+      this.setRandomTranslation = __bind(this.setRandomTranslation, this);
+
       this.rnd = __bind(this.rnd, this);
 
       this.onExperienceListFetched = __bind(this.onExperienceListFetched, this);
+
+      this.onEducationListFetched = __bind(this.onEducationListFetched, this);
 
       this.initialize = __bind(this.initialize, this);
       return MainView.__super__.constructor.apply(this, arguments);
@@ -49,18 +55,51 @@
       }));
       this.experienceList = new BoxList();
       this.experienceList.setUrl('http://henriksandstromcv.appspot.com/experience');
-      return this.experienceList.fetch({
+      this.experienceList.fetch({
         success: function() {
           return _this.onExperienceListFetched();
-        },
-        remove: false
+        }
+      });
+      this.educationList = new BoxList();
+      this.educationList.setUrl('http://henriksandstromcv.appspot.com/education');
+      return this.educationList.fetch({
+        success: function() {
+          return _this.onEducationListFetched();
+        }
       });
     };
 
+    MainView.prototype.onEducationListFetched = function() {
+      console.log('onEducationListFetched');
+      console.log(this.educationList);
+      this.educationList.add({
+        id: 'educationheader',
+        className: 'nicetext bluebox well',
+        data: {
+          '4300': "opacity:0;transform:translate(" + this.width + "px, 0px);",
+          '5300': "opacity:1;transform:translate(0px, 0px);"
+        },
+        title: 'Education'
+      }, {
+        at: 0
+      });
+      this.setRandomTranslation(this.educationList, 5300, 500, 1000);
+      this.views.push(new BoxListView({
+        attributes: {
+          "class": 'education',
+          'data-0': "opacity:0;transform:translate(" + this.width + "px, 0px);",
+          'data-4300': "opacity:0;transform:translate(0px, 0px);",
+          "data-7300": "opacity:1;transform:translate(0px, 0px);",
+          'data-8000': "opacity:0;transform:translate(" + this.width + "px, 0px);"
+        },
+        collection: this.educationList
+      }));
+      return this.render();
+    };
+
     MainView.prototype.onExperienceListFetched = function() {
-      var a, b, dataC, diffa, diffb, end, index, item, start, translate1, translate2, _i,
-        _this = this;
       console.log('onExperienceListFetched');
+      console.log(this.experienceList);
       this.experienceList.add({
         id: 'experienceheader',
         className: 'nicetext bluebox well',
@@ -73,11 +112,43 @@
       }, {
         at: 0
       });
+      this.setRandomTranslation(this.experienceList, 2300, 500, 1000);
+      this.views.push(new BoxListView({
+        attributes: {
+          "class": 'experience',
+          'data-0': "opacity:0;transform:translate(" + this.width + "px, 0px);",
+          'data-900': "opacity:0;transform:translate(0px, 0px);",
+          "data-4200": "opacity:1;transform:translate(0px, 0px);",
+          'data-5200': "opacity:0;transform:translate(" + -this.width + "px, 0px);"
+        },
+        collection: this.experienceList
+      }));
+      return this.render();
+    };
+
+    MainView.prototype.rnd = function(a, b, x) {
+      return parseInt(a, 10) + parseInt(b * (x + Math.random()), 10);
+    };
+
+    MainView.prototype.setRandomTranslation = function(list, start, diffa, diffb) {
+      var dataC, end, index, item, _i, _results;
+      dataC = this.getDataTranslations(start, diffa, diffb);
+      end = list.length - 1;
+      _results = [];
+      for (index = _i = 1; 1 <= end ? _i <= end : _i >= end; index = 1 <= end ? ++_i : --_i) {
+        item = list.at(index);
+        _results.push(item.set('data', dataC[index]));
+      }
+      return _results;
+    };
+
+    MainView.prototype.getDataTranslations = function(start, diffa, diffb) {
+      var a, b, dataC, translate1, translate2, translate3, translate4,
+        _this = this;
       translate1 = "opacity:0.2;transform:translate(0px, " + (this.height * 2) + "px);";
       translate2 = "opacity:1;transform:translate(0px, 0px);";
-      start = 2300;
-      diffa = 500;
-      diffb = 1000;
+      translate3 = "opacity:1;transform:translate(0px, 0px);";
+      translate4 = "opacity:0;transform:translate(0px, 0px);";
       a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(function() {
         return _this.rnd(start, diffa, 0);
       });
@@ -89,24 +160,11 @@
         coll = {};
         coll[a[i]] = translate1;
         coll[b[i]] = translate2;
+        coll[start + diffa + diffb] = translate3;
+        coll[start + 2 * diffa + diffb] = translate4;
         return coll;
       }));
-      end = this.experienceList.length - 1;
-      for (index = _i = 1; 1 <= end ? _i <= end : _i >= end; index = 1 <= end ? ++_i : --_i) {
-        item = this.experienceList.at(index);
-        item.set('data', dataC[index]);
-      }
-      this.views.push(new BoxListView({
-        attributes: {
-          "class": 'experience'
-        },
-        collection: this.experienceList
-      }));
-      return this.render();
-    };
-
-    MainView.prototype.rnd = function(a, b, x) {
-      return parseInt(a, 10) + parseInt(b * (x + Math.random()), 10);
+      return dataC;
     };
 
     MainView.prototype.render = function() {

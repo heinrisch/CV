@@ -58,7 +58,8 @@
     return $('div').popover({
       trigger: 'hover',
       animation: true,
-      placement: 'bottom'
+      placement: 'bottom',
+      container: 'body'
     });
   };
 
