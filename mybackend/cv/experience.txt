@@ -1,0 +1,37 @@
+Wrapp
+Android Developer
+Working in the user facing team with responsibility for the Android client.
+
+Sbla
+Founder/Consultant
+Android development company founded in late 2010 after about a year of hobby development. Sbla works on both in-house app and game development as well as projects for external customers.
+
+ORC
+Team Lead/Client Developer
+Was team lead for the main team working with the Orc Trader. Team consisted of 5 developers of 3 testers doing agile/lean development in Kanban style.
+
+Google
+Speech Data Specialist
+Helping out with one of their projects over the summer
+
+Ericsson
+Thesis Work
+Developing a format for storing and handling indoor-maps.
+
+Royal Institue of Technology
+Lab Assistant
+Many different courses helping students with
+      programming and problem solving in: Python, Java, Haskell, Prolog, OpenGL,
+      C/C++, and Syntax Analysis.
+
+PriceWaterHouseCoopers
+IT-Administrator
+Worked as the leader of a group of 7 people. The main task was to upgrade computers and servers in many different locations in Sweden. I was also responsible for updating the company\s database with the relevant information.
+
+Onealyze
+Software Developer
+Worked with various programming assignments involving mainly PHP, SQL, and Javascript for companies such as TV4 (Swedish TV channel) and Husqvarna.
+
+Nordväxt Intressenter
+Mentor
+Worked as a mentor with First Lego League. Helped children in grade 7 through 9 to build and program Lego robots. I was also a referee at the local First Lego League competition in Stockholm.
