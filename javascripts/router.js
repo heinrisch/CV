@@ -10,9 +10,9 @@
     cv: function() {
       var view;
       console.log('Loading Main view');
-      view = new MainView(_this.skrollrObject);
+      view = new MainView(_this.refresh);
       $('#skrollr-body').html(view.render().el);
-      return _this.skrollrObject.refresh();
+      return _this.refresh();
     }
   });
 
@@ -53,17 +53,21 @@
 
   recInclude();
 
+  this.refresh = function() {
+    _this.skrollrObject.refresh();
+    return $('div').popover({
+      trigger: 'hover',
+      animation: true,
+      placement: 'bottom'
+    });
+  };
+
   startApp = function() {
     _this.skrollrObject = skrollr.init({
       forceHeight: false
     });
     new Router();
-    Backbone.history.start();
-    return $('.workbox').popover({
-      trigger: 'hover',
-      animation: true,
-      placement: 'bottom'
-    });
+    return Backbone.history.start();
   };
 
   $(function() {

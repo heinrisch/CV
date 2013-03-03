@@ -19,11 +19,10 @@
       return MainView.__super__.constructor.apply(this, arguments);
     }
 
-    MainView.prototype.initialize = function(skrollr) {
+    MainView.prototype.initialize = function(refresh) {
       var introList,
         _this = this;
-      console.log(skrollr);
-      this.skrollrObject = skrollr;
+      this.refresh = refresh;
       this.views = [];
       this.width = $(window).width();
       this.height = $(window).height();
@@ -103,8 +102,7 @@
         },
         collection: this.experienceList
       }));
-      this.render();
-      return this.skrollrObject.refresh();
+      return this.render();
     };
 
     MainView.prototype.rnd = function(a, b, x) {
@@ -120,6 +118,7 @@
         v = _ref[_i];
         this.$el.append(v.render().el);
       }
+      this.refresh();
       return this;
     };
 

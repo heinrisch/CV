@@ -22,7 +22,7 @@ type Experience struct {
     ID string `json:"id"`
     Title string `json:"title"`
     Description string `json:"description"`
-    Longdescription string `json:longdescription""`
+    Longdescription string `json:"longdescription"`
 }
 
 func experienceHandler(w http.ResponseWriter, r *http.Request){

@@ -1,8 +1,7 @@
 class window.MainView extends Backbone.View
 
-  initialize: (skrollr) =>
-    console.log skrollr
-    @skrollrObject = skrollr
+  initialize: (refresh) =>
+    @refresh = refresh
     @views = []
 
     @width = $(window).width()
@@ -84,7 +83,6 @@ class window.MainView extends Backbone.View
     })
 
     @render()
-    @skrollrObject.refresh()
 
   rnd: (a,b,x) =>
     return (parseInt(a,10) + parseInt(b*(x + Math.random()), 10))
@@ -94,4 +92,5 @@ class window.MainView extends Backbone.View
     @$el.html('')
     for v in @views
       @$el.append(v.render().el)
+    @refresh()
     return @
