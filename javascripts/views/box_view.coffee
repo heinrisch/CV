@@ -11,7 +11,10 @@ class window.BoxView extends Backbone.View
   attributes: =>
     attr = @model.get('attributes')
     attr = {} if not attr
-    attr['class'] = @model.get('className')
+    if @model.get('className')
+      attr['class'] = @model.get('className')
+    else
+      attr['class'] = 'nicetext wrapp floatleft workbox img-rounded'
     _.each(@model.get('data'),( (v,k) =>
       attr['data-' + k] =  v
       ))

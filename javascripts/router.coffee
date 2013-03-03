@@ -5,8 +5,9 @@ Router = Backbone.Router.extend({
 
   cv: =>
     console.log 'Loading Main view'
-    view = new MainView()
+    view = new MainView(@skrollrObject)
     $('#skrollr-body').html(view.render().el)
+    @skrollrObject.refresh()
   
 })
 
@@ -39,10 +40,10 @@ recInclude = =>
 recInclude()
 
 
-startApp = =>
+startApp = => 
+  @skrollrObject = skrollr.init({forceHeight: false})
   new Router()
   Backbone.history.start()
-  skrollr.init({forceHeight: false})
   $('.workbox').popover({
     trigger: 'hover'
     animation: true

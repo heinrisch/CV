@@ -36,7 +36,11 @@
       if (!attr) {
         attr = {};
       }
-      attr['class'] = this.model.get('className');
+      if (this.model.get('className')) {
+        attr['class'] = this.model.get('className');
+      } else {
+        attr['class'] = 'nicetext wrapp floatleft workbox img-rounded';
+      }
       _.each(this.model.get('data'), (function(v, k) {
         return attr['data-' + k] = v;
       }));

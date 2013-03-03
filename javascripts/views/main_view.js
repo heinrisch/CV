@@ -13,24 +13,28 @@
 
       this.rnd = __bind(this.rnd, this);
 
+      this.onExperienceListFetched = __bind(this.onExperienceListFetched, this);
+
       this.initialize = __bind(this.initialize, this);
       return MainView.__super__.constructor.apply(this, arguments);
     }
 
-    MainView.prototype.initialize = function() {
-      var a, b, dataC, diffa, diffb, end, experienceList, height, index, introList, item, start, translate1, translate2, width, _i,
+    MainView.prototype.initialize = function(skrollr) {
+      var introList,
         _this = this;
+      console.log(skrollr);
+      this.skrollrObject = skrollr;
       this.views = [];
-      width = $(window).width();
-      height = $(window).height();
-      console.log(width + 'x' + height);
+      this.width = $(window).width();
+      this.height = $(window).height();
+      console.log(this.width + 'x' + this.height);
       introList = new BoxList();
       introList.reset([
         {
           id: 'introtext',
           className: 'nicetext bluebox introtext centered well',
           data: {
-            "0": "opacity:1;transform:translate(0px, " + (height / 2 - 100) + "px);",
+            "0": "opacity:1;transform:translate(0px, " + (this.height / 2 - 100) + "px);",
             "1000": "opacity:0;transform:translate(0px, -200px);"
           },
           title: "Henrik Sandström",
@@ -44,7 +48,33 @@
         },
         collection: introList
       }));
-      translate1 = "opacity:0.2;transform:translate(0px, " + (height * 2) + "px);";
+      this.experienceList = new BoxList();
+      this.experienceList.setUrl('http://henriksandstromcv.appspot.com/experience');
+      return this.experienceList.fetch({
+        success: function() {
+          return _this.onExperienceListFetched();
+        },
+        remove: false
+      });
+    };
+
+    MainView.prototype.onExperienceListFetched = function() {
+      var a, b, dataC, diffa, diffb, end, index, item, start, translate1, translate2, _i,
+        _this = this;
+      console.log('onExperienceListFetched');
+      this.experienceList.add({
+        id: 'experienceheader',
+        className: 'nicetext bluebox well',
+        data: {
+          '900': "opacity:0;transform:translate(0px, " + (this.height / 2 - 100) + "px);",
+          '1500': "opacity:1;transform:translate(0px, " + (this.height / 2 - 100) + "px);",
+          '2000': "opacity:1;transform:translate(0px, 0px);"
+        },
+        title: 'Experience'
+      }, {
+        at: 0
+      });
+      translate1 = "opacity:0.2;transform:translate(0px, " + (this.height * 2) + "px);";
       translate2 = "opacity:1;transform:translate(0px, 0px);";
       start = 2300;
       diffa = 500;
@@ -62,86 +92,19 @@
         coll[b[i]] = translate2;
         return coll;
       }));
-      experienceList = new BoxList();
-      experienceList.reset([
-        {
-          id: 'experienceheader',
-          className: 'nicetext bluebox well',
-          data: {
-            '900': "opacity:0;transform:translate(0px, " + (height / 2 - 100) + "px);",
-            '1500': "opacity:1;transform:translate(0px, " + (height / 2 - 100) + "px);",
-            '2000': "opacity:1;transform:translate(0px, 0px);"
-          },
-          title: 'Experience'
-        }, {
-          id: 'wrapp',
-          className: 'nicetext wrapp floatleft workbox img-rounded',
-          title: 'Wrapp',
-          description: 'Android Developer',
-          longdescription: 'Working in the user facing team with responsibility for the Android client.'
-        }, {
-          id: 'sbla',
-          className: 'nicetext wrapp floatleft workbox img-rounded',
-          title: 'Sbla',
-          description: "Founder/Consultant",
-          longdescription: 'Android development company founded in late 2010 after about a year of hobby development. Sbla works on both in-house app and game development as well as projects for external customers.'
-        }, {
-          id: 'orc',
-          className: 'nicetext wrapp floatleft workbox img-rounded',
-          title: 'ORC',
-          description: "Team Lead/Client Developer",
-          longdescription: 'Was team lead for the main team working with the Orc Trader. Team consisted of 5 developers of 3 testers doing agile/lean development in Kanban style.'
-        }, {
-          id: 'google',
-          className: 'nicetext wrapp floatleft workbox img-rounded',
-          title: 'Google',
-          description: "Speech Data Specialist",
-          longdescription: 'Helping out with one of their projects over the summer'
-        }, {
-          id: 'ericsson',
-          className: 'nicetext wrapp floatleft workbox img-rounded',
-          title: 'Ericsson',
-          description: 'Thesis Work',
-          longdescription: 'Developing a format for storing and handling indoor-maps.'
-        }, {
-          id: 'kth',
-          className: 'nicetext wrapp floatleft workbox img-rounded',
-          title: 'Royal Institue of Technology',
-          description: 'Lab Assistant',
-          longdescription: 'Many different courses helping students with\
-      programming and problem solving in: Python, Java, Haskell, Prolog, OpenGL,\
-      C/C++, and Syntax Analysis.'
-        }, {
-          id: 'pwc',
-          className: 'nicetext wrapp floatleft workbox img-rounded',
-          title: 'PriceWaterHouseCoopers',
-          description: 'IT-Administrator',
-          longdescription: 'Worked as the leader of a group of 7 people. The main task was to upgrade computers and servers in many different locations in Sweden. I was also responsible for updating the company\'s database with the relevant information.'
-        }, {
-          id: 'onealyze',
-          className: 'nicetext wrapp floatleft workbox img-rounded',
-          title: 'Onealyze',
-          description: 'Software Developer',
-          longdescription: 'Worked with various programming assignments involving mainly PHP, SQL, and Javascript for companies such as TV4 (Swedish TV channel) and Husqvarna.'
-        }, {
-          id: 'nordvaxt',
-          className: 'nicetext wrapp floatleft workbox img-rounded',
-          title: 'Nordv&auml;xt Intressenter',
-          description: 'Mentor',
-          longdescription: 'Worked as a mentor with First Lego League. Helped children in grade 7 through 9 to build and program Lego robots. I was also a referee at the local First Lego League competition in Stockholm.'
-        }
-      ]);
-      end = experienceList.length - 1;
+      end = this.experienceList.length - 1;
       for (index = _i = 1; 1 <= end ? _i <= end : _i >= end; index = 1 <= end ? ++_i : --_i) {
-        item = experienceList.at(index);
+        item = this.experienceList.at(index);
         item.set('data', dataC[index]);
       }
-      return this.views.push(new BoxListView({
+      this.views.push(new BoxListView({
         attributes: {
           "class": 'experience'
         },
-        collection: experienceList
+        collection: this.experienceList
       }));
+      this.render();
+      return this.skrollrObject.refresh();
     };
 
     MainView.prototype.rnd = function(a, b, x) {

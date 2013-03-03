@@ -60,6 +60,7 @@ func experienceHandler(w http.ResponseWriter, r *http.Request){
         fmt.Fprint(w, "error:", err2)
   }
 
+  w.Header().Set("Access-Control-Allow-Origin", "*")
   fmt.Fprint(w,string(json2))
 }
 
