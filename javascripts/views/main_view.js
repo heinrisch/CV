@@ -15,6 +15,8 @@
 
       this.setRandomTranslation = __bind(this.setRandomTranslation, this);
 
+      this.createAttributes = __bind(this.createAttributes, this);
+
       this.rnd = __bind(this.rnd, this);
 
       this.onExperienceListFetched = __bind(this.onExperienceListFetched, this);
@@ -48,9 +50,7 @@
         }
       ]);
       this.views.push(new BoxListView({
-        attributes: {
-          'class': 'intro'
-        },
+        attributes: this.createAttributes('intro', 0, 1000),
         collection: introList
       }));
       this.experienceList = new BoxList();
@@ -85,13 +85,7 @@
       });
       this.setRandomTranslation(this.educationList, 5300, 500, 1000);
       this.views.push(new BoxListView({
-        attributes: {
-          "class": 'education',
-          'data-0': "opacity:0;transform:translate(" + this.width + "px, 0px);",
-          'data-4300': "opacity:0;transform:translate(0px, 0px);",
-          "data-7300": "opacity:1;transform:translate(0px, 0px);",
-          'data-8000': "opacity:0;transform:translate(" + this.width + "px, 0px);"
-        },
+        attributes: this.createAttributes('education', 4300, 8000),
         collection: this.educationList
       }));
       return this.render();
@@ -106,7 +100,9 @@
         data: {
           '900': "opacity:0;transform:translate(0px, " + (this.height / 2 - 100) + "px);",
           '1500': "opacity:1;transform:translate(0px, " + (this.height / 2 - 100) + "px);",
-          '2000': "opacity:1;transform:translate(0px, 0px);"
+          '2000': "opacity:1;transform:translate(0px, 0px);",
+          '4200': "opacity:1;transform:translate(0px, 0px);",
+          '5200': "opacity:1;transform:translate(" + -this.width + "px, 0px);"
         },
         title: 'Experience'
       }, {
@@ -114,13 +110,7 @@
       });
       this.setRandomTranslation(this.experienceList, 2300, 500, 1000);
       this.views.push(new BoxListView({
-        attributes: {
-          "class": 'experience',
-          'data-0': "opacity:0;transform:translate(" + this.width + "px, 0px);",
-          'data-900': "opacity:0;transform:translate(0px, 0px);",
-          "data-4200": "opacity:1;transform:translate(0px, 0px);",
-          'data-5200': "opacity:0;transform:translate(" + -this.width + "px, 0px);"
-        },
+        attributes: this.createAttributes('experience', 900, 5300),
         collection: this.experienceList
       }));
       return this.render();
@@ -128,6 +118,19 @@
 
     MainView.prototype.rnd = function(a, b, x) {
       return parseInt(a, 10) + parseInt(b * (x + Math.random()), 10);
+    };
+
+    MainView.prototype.createAttributes = function(className, entry, exit) {
+      var attr, translateGone, translateVisible;
+      attr = {};
+      translateGone = "opacity:0;transform:translate(" + this.width + "px, 0px);";
+      translateVisible = "opacity:1;transform:translate(0px, 0px);";
+      attr['class'] = className;
+      attr['data-' + (entry - 1)] = translateGone;
+      attr['data-' + entry] = translateVisible;
+      attr['data-' + (exit - 1)] = translateVisible;
+      attr['data-' + exit] = translateGone;
+      return attr;
     };
 
     MainView.prototype.setRandomTranslation = function(list, start, diffa, diffb) {

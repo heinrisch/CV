@@ -22,9 +22,7 @@ class window.MainView extends Backbone.View
       longdescription: 'Scroll down!'
     }])
     @views.push new BoxListView({
-      attributes:{
-         'class': 'intro'
-         }
+      attributes: @createAttributes('intro', 0, 1000)
       collection: introList
       })
     
@@ -55,13 +53,7 @@ class window.MainView extends Backbone.View
 
     @setRandomTranslation(@educationList, 5300, 500, 1000)
     @views.push new BoxListView({
-      attributes:{
-        class: 'education' 
-        'data-0' : "opacity:0;transform:translate(" + @width  + "px, 0px);"
-        'data-4300' : "opacity:0;transform:translate(0px, 0px);"
-        "data-7300": "opacity:1;transform:translate(0px, 0px);"
-        'data-8000' : "opacity:0;transform:translate(" + @width  + "px, 0px);"
-      }
+      attributes: @createAttributes('education', 4300, 8000)
       collection: @educationList
     })
 
@@ -77,19 +69,15 @@ class window.MainView extends Backbone.View
         '900' : "opacity:0;transform:translate(0px, " + (@height/2- 100) + "px);"
         '1500' : "opacity:1;transform:translate(0px, " + (@height/2- 100) + "px);"
         '2000' : "opacity:1;transform:translate(0px, 0px);"
+        '4200' : "opacity:1;transform:translate(0px, 0px);"
+        '5200' : "opacity:1;transform:translate(" + -@width + "px, 0px);"
       }
       title: 'Experience'
     }, {at: 0})
 
     @setRandomTranslation(@experienceList, 2300, 500, 1000)
     @views.push new BoxListView({
-      attributes:{
-        class: 'experience'
-        'data-0' : "opacity:0;transform:translate(" + @width  + "px, 0px);"
-        'data-900' : "opacity:0;transform:translate(0px, 0px);"
-        "data-4200": "opacity:1;transform:translate(0px, 0px);"
-        'data-5200' : "opacity:0;transform:translate(" + -@width  + "px, 0px);"
-      }
+      attributes: @createAttributes('experience', 900, 5300)
       collection: @experienceList
     })
 
@@ -97,6 +85,17 @@ class window.MainView extends Backbone.View
 
   rnd: (a,b,x) =>
     return (parseInt(a,10) + parseInt(b*(x + Math.random()), 10))
+
+  createAttributes: (className, entry, exit) =>
+    attr = {}
+    translateGone = "opacity:0;transform:translate(" + @width  + "px, 0px);"
+    translateVisible = "opacity:1;transform:translate(0px, 0px);"
+    attr['class'] =  className
+    attr['data-' + (entry-1)] = translateGone
+    attr['data-' + (entry)] = translateVisible
+    attr['data-' + (exit-1)] = translateVisible
+    attr['data-' + (exit)] = translateGone
+    attr
 
   setRandomTranslation: (list, start, diffa, diffb) =>  
     dataC = @getDataTranslations(start, diffa, diffb)
